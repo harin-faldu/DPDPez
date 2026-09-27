@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shophub India - Create your account</title>
+<style>
+  body { font-family: sans-serif; margin: 0; padding: 24px; }
+  form label { display: block; margin: 8px 0 2px; }
+  #cookie-consent-banner {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    padding: 18px 24px; background: #111; color: #fff; z-index: 40;
+  }
+  #cookie-consent-banner button, #cookie-consent-banner a {
+    display: inline-block; margin-top: 10px; padding: 8px 14px; color: #fff;
+  }
+  footer { margin-top: 40px; padding: 16px 0; }
+</style>
+<!-- Tag manager and a session replay tool, both loaded from the head, so both
+     fire before a visitor could have chosen anything. -->
+<script src="https://www.googletagmanager.com/gtm.js?id=GTM-TEST01"></script>
+<script src="https://static.hotjar.com/c/hotjar-1234567.js" async></script>
+<!-- A consent platform stub. Must not be counted as a tracker: the script that
+     draws the banner has to load before any choice exists. -->
+<script src="https://cdn.cookielaw.org/consent/testtest/otSDKStub.js"></script>
+</head>
+<body>
+<header><strong>Shophub India</strong></header>
+
+<main>
+<h1>Create your Shophub account</h1>
+<p>Join twelve lakh shoppers. Fill in your details below to open an account and
+start ordering. Delivery across 19,000 pin codes, with cash on delivery and UPI
+both supported at checkout.</p>
+
+<form action="/signup" method="post">
+  <label for="full_name">Full name</label>
+  <input id="full_name" name="full_name" type="text" required>
+
+  <label for="email">Email address</label>
+  <input id="email" name="email" type="email" autocomplete="email" required>
+
+  <label for="mobile">Mobile number</label>
+  <input id="mobile" name="mobile" type="tel" required>
+
+  <label for="aadhaar_number">Aadhaar number (for KYC)</label>
+  <input id="aadhaar_number" name="aadhaar_number" type="text" required>
+
+  <label for="pan_card">PAN card number</label>
+  <input id="pan_card" name="pan_card" type="text">
+
+  <label for="bank_account">Bank account number for refunds</label>
+  <input id="bank_account" name="bank_account" type="text">
+
+  <label for="blood_group">Blood group</label>
+  <input id="blood_group" name="blood_group" type="text">
+
+  <label for="caste_category">Caste category</label>
+  <select id="caste_category" name="caste_category">
+    <option>General</option>
+    <option>OBC</option>
+  </select>
+
+  <label for="fingerprint_scan">Fingerprint scan reference</label>
+  <input id="fingerprint_scan" name="fingerprint_scan" type="text">
+
+  <label>
+    <input type="checkbox" name="terms_accepted">
+    I have read and accept the Terms and Conditions
+  </label>
+  <label>
+    <input type="checkbox" name="promo_optin" checked>
+    Yes, send me promotional offers and newsletter updates
+  </label>
+
+  <button type="submit">Create account</button>
+</form>
+</main>
+
+<footer>
+  <a href="/privacy-policy">Privacy Policy</a>
+  <a href="/grievance-redressal">Grievance Redressal</a>
+  <a href="/terms">Terms and Conditions</a>
+  <a href="/contact-us">Contact us</a>
+  <p>Grievance Officer: Mr Rahul Verma, Email: grievance@shophub.example,
+     Phone: +91 22 6789 0000</p>
+</footer>
+
+<div id="cookie-consent-banner" class="cookie-consent">
+  <p>We use cookies and similar tracking technologies to personalise content and ads.</p>
+  <button id="accept-all">Accept All Cookies</button>
+  <a href="/cookie-policy">Cookie Settings</a>
+</div>
+
+<script>
+  // Pixels, a beacon style POST and a tag injected after parsing: none of these
+  // ever appear as a script element in the served HTML.
+  new Image().src = "https://www.google-analytics.com/collect?v=1&t=pageview";
+  new Image().src = "https://www.facebook.com/tr?id=999888&ev=PageView";
+  new Image().src = "https://sk1.wzrk.net/pixel?acct=TEST01";
+  fetch("https://in1.api.clevertap.com/defineVars", { method: "POST" }).catch(function () {});
+  var injected = document.createElement("script");
+  injected.src = "https://securepubads.g.doubleclick.net/tag/js/gpt.js";
+  document.head.appendChild(injected);
+</script>
+</body>
+</html>

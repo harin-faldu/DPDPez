@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shophub India - Order confirmed</title>
+<script>
+// A measurement POST whose body carries the shopper's email address and mobile
+// number. The URL on its own would read as "a beacon was sent", which is the
+// whole reason bodies are inspected.
+fetch('https://www.google-analytics.com/g/collect', {
+  method: 'POST',
+  body: 'v=2&tid=G-FIXTURE01&cid=1122334455.1667788990&en=purchase'
+      + '&em=rupa.desai%40shoppers.example&ph=%2B919812345678&dl=https%3A%2F%2Fshophub.example%2F'
+});
+
+// The same thing as JSON, nested the way a conversions API payload nests it.
+fetch('https://connect.facebook.net/tr/', {
+  method: 'POST',
+  headers: { 'Content-Type': 'text/plain' },
+  body: JSON.stringify({
+    pixel_id: '100200300',
+    event_name: 'Purchase',
+    event_time: 1730000000,
+    user_data: { email_address: 'rupa.desai@shoppers.example', ct: 'Ahmedabad' }
+  })
+});
+
+// A body with nothing personal in it, so the pass side of the check has
+// something real behind it.
+navigator.sendBeacon('https://static.hotjar.com/api/v2/client/sites/1/events',
+                     'v=1&tid=HJ-FIXTURE&cid=abc&en=heartbeat');
+</script>
+</head>
+<body>
+<h1>Thank you, your Shophub order is confirmed</h1>
+<p>Order 48120 will reach you within three working days. A confirmation has been
+sent to the email address on your account, and you can track the parcel from the
+orders page at any time. Cash on delivery and UPI are both accepted, and refunds
+reach the original payment method within seven working days of a return being
+collected from your address.</p>
+<p>Customer care answers between nine in the morning and nine at night, every day
+of the week, in English, Hindi and Gujarati.</p>
+</body>
+</html>

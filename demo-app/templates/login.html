@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Sign in, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h1>Sign in</h1>
+  <p class="fine">
+    The sign in cookie is the only cookie this site needs to work. It carries Secure,
+    HttpOnly and SameSite, and it is not set until you sign in.
+  </p>
+  <form method="post" action="{{ url_for('login') }}" class="stack">
+    <input type="hidden" name="next_path" value="{{ next_path }}">
+    <div class="field">
+      <label for="email">Contact address</label>
+      <input type="email" id="email" name="email" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="password">Passphrase</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="cta">Sign in</button>
+  </form>
+  <p>No account yet? <a href="{{ url_for('signup') }}">Create one</a>.</p>
+  <p class="fine">
+    Fixture accounts, both invented: buyer.one@example.invalid with passphrase
+    FixturePass!2026, and privacy.ops@bharatbazaar.invalid with passphrase
+    FixtureOps!2026 for the internal reports.
+  </p>
+</section>
+{% endblock %}

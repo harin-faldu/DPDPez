@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Who has read my data, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Who has read my data</h1>
+  <p class="lede">
+    Section 8(1) puts the burden of showing compliance on us, so reads are recorded as
+    well as changes. Each entry names the row that was touched, never its contents.
+  </p>
+  <table class="grid">
+    <thead><tr><th>When</th><th>What</th><th>Row</th><th>Purpose</th></tr></thead>
+    <tbody>
+      {% for row in entries %}
+      <tr>
+        <td>{{ row.occurred_at }}</td>
+        <td>{{ row.action }}</td>
+        <td>{{ row.object_ref }}</td>
+        <td>{{ row.purpose }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if not entries %}<p>Nothing recorded yet.</p>{% endif %}
+</section>
+{% endblock %}

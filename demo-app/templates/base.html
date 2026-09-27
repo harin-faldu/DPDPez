@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bharat Bazaar demonstration fixture for DPDP Act 2023 compliance scanning. Synthetic data only.">
+  <meta name="privacy-notice" content="/privacy">
+  <meta name="grievance-officer" content="grievance-officer@bharatbazaar.invalid">
+  <meta name="data-protection-officer" content="dpo@bharatbazaar.invalid">
+  <title>{% block title %}Bharat Bazaar{% endblock %}</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+  <header class="site-head">
+    <div class="brand"><a href="{{ url_for('home') }}">Bharat Bazaar</a>
+      <span class="tag">demonstration fixture</span></div>
+    <nav class="main-nav" aria-label="Main">
+      <!-- The notice link sits in the header on purpose. Section 5 asks for the
+           notice to be available before collection, and a link only in the footer
+           of a page a person has already filled in does not meet that. -->
+      <a href="{{ url_for('privacy_notice') }}" class="notice-link">Privacy notice</a>
+      <a href="{{ url_for('catalogue') }}">Shop</a>
+      <a href="{{ url_for('cookie_policy') }}">Cookie notice</a>
+      <a href="/account/my-data">My data</a>
+      <a href="/consent/preferences">Manage preferences</a>
+      {% if session.get('principal_id') %}
+        <a href="{{ url_for('account.account_home') }}">My account</a>
+        <a href="{{ url_for('logout') }}">Sign out</a>
+      {% else %}
+        <a href="{{ url_for('signup') }}">Create account</a>
+        <a href="{{ url_for('login') }}">Sign in</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  {% if banner_pending %}
+  <div class="consent-scrim">
+    <section class="consent-banner" id="consent-banner" aria-label="Consent choices">
+      <span class="banner-kicker">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2l8 3.5v6c0 5-3.4 8.7-8 10.5-4.6-1.8-8-5.5-8-10.5v-6L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        Before we start
+      </span>
+      <h2>Your choices, upfront</h2>
+      <p>
+        We need nothing beyond a sign in cookie to run this site. The two purposes
+        below are optional and start switched off. Refusing takes one click, exactly
+        like accepting, and you can change your mind at any time.
+      </p>
+      <form method="post" action="{{ url_for('consent_banner_choice') }}" class="banner-form">
+        <input type="hidden" name="return_to" value="{{ request.path }}">
+        <details class="banner-customize">
+          <summary>
+            <svg class="caret" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Customize choices
+          </summary>
+          <fieldset>
+            <legend>Optional purposes</legend>
+            {% for row in optional %}
+            <div class="choice">
+              <input type="checkbox" id="banner-{{ row.key }}" name="{{ row.key }}" value="yes">
+              <label for="banner-{{ row.key }}">I consent to {{ row.shown_as|lower }}: {{ row.explains }}</label>
+            </div>
+            {% endfor %}
+          </fieldset>
+        </details>
+        <div class="banner-actions">
+          <button type="submit" name="choice" value="accept" class="equal-weight">Accept selected</button>
+          <button type="submit" name="choice" value="reject" class="equal-weight">Reject all</button>
+        </div>
+        <p class="fine">
+          <a href="/consent/preferences">Manage preferences in detail</a> or read
+          <a href="{{ url_for('cookie_policy') }}">what each purpose means</a>.
+        </p>
+      </form>
+    </section>
+  </div>
+  {% endif %}
+
+  <main>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class="flash">
+        {% for note in messages %}<li>{{ note }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-foot">
+    <div class="foot-col">
+      <h3>Who to contact</h3>
+      {% for role, person, mailbox in contacts or default_contacts %}
+      <p>{{ role }}: {{ person }}, {{ mailbox }}</p>
+      {% endfor %}
+      <p>Bharat Bazaar Retail Private Limited, Ahmedabad, Gujarat, India.</p>
+    </div>
+    <div class="foot-col">
+      <h3>Your rights</h3>
+      <ul class="rights">
+        <li><a href="/account/my-data">Download my data</a></li>
+        <li><a href="/account/delete-my-data">Delete my account</a></li>
+        <li><a href="/consent/preferences">Manage preferences</a></li>
+        <li><a href="/account/audit-trail">Who has read my data</a></li>
+      </ul>
+      <p class="fine">
+        Correcting your details and naming a nominee are in the account settings:
+        <a href="/account">go to my account</a>.
+      </p>
+    </div>
+    <div class="foot-col">
+      <h3>Notices</h3>
+      <ul class="rights">
+        <li><a href="{{ url_for('privacy_notice') }}">Privacy notice</a></li>
+        <li><a href="{{ url_for('cookie_policy') }}">Cookie notice</a></li>
+        <li><a href="/grievance">Grievance redressal and escalation</a></li>
+        <li><a href="/children">Children's privacy notice, accounts under 18</a></li>
+        <li><a href="/security">Security policy and safeguards</a></li>
+        <li><a href="/terms">Terms of use</a></li>
+        <li><a href="/refund">Refund and return policy</a></li>
+      </ul>
+      <p class="fine">Notice version {{ policy_version or '2026-09-01.3' }}</p>
+      <p class="fine">Synthetic data only. This is a demonstration fixture.</p>
+    </div>
+  </footer>
+
+  {% if chosen and chosen.get('analytics') %}
+  <!-- Loaded only after analytics consent, and only from this origin. There is no
+       vendor tag, no pixel and no beacon anywhere in this application. -->
+  <script src="{{ url_for('static', filename='analytics-stub.js') }}" defer></script>
+  {% endif %}
+</body>
+</html>

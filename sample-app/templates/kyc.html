@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block title %}Complete KYC{% endblock %} {% block
+content %}
+<!--
+  INTENTIONALLY VULNERABLE DEMO FIXTURE. DO NOT DEPLOY.
+  Start of the cross file identifier flow described in README.md (R4, R6).
+  Use placeholder digits only. Never type a real Aadhaar or PAN into this app.
+-->
+<h1>Complete your KYC</h1>
+<p>Upload your identity details to unlock cash on delivery and higher limits.</p>
+
+<form method="POST" action="/kyc">
+  <input type="hidden" name="user_id" value="{{ user_id }}" />
+
+  <label for="aadhaar_number">Aadhaar number</label>
+  <input
+    type="text"
+    id="aadhaar_number"
+    name="aadhaar_number"
+    maxlength="12"
+    placeholder="000000000000"
+    required
+  />
+
+  <label for="pan_number">PAN</label>
+  <input
+    type="text"
+    id="pan_number"
+    name="pan_number"
+    maxlength="10"
+    placeholder="AAAAA0000A"
+    required
+  />
+
+  <button type="submit">Submit KYC</button>
+</form>
+{% endblock %}

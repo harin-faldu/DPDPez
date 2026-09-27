@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Class based dark mode. The root element carries the "dark" class and the
+   ThemeProvider keeps it in sync with the stored preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+:root {
+  color-scheme: light;
+  background-color: #f8fafc;
+}
+
+:root.dark {
+  color-scheme: dark;
+  background-color: #020617;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Restrained scrollbars so dense panels stay readable. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+:root.dark * {
+  scrollbar-color: #334155 transparent;
+}
+
+@keyframes dpdpa-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(340%);
+  }
+}
+
+.animate-indeterminate {
+  animation: dpdpa-indeterminate 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-indeterminate {
+    animation-duration: 4s;
+  }
+}

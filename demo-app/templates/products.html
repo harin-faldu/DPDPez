@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Shop, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Shop</h1>
+  <p class="fine">
+    Analytics counting is {{ 'on' if chosen.get('analytics') else 'off' }} for this
+    browser. With it off, nothing about this visit is recorded anywhere.
+  </p>
+  <div class="product-grid">
+    {% for item in items %}
+    <article class="product-card">
+      <div class="swatch" aria-hidden="true">
+        {{ item.display_label[:1]|upper }}
+      </div>
+      <h3>{{ item.display_label }}</h3>
+      <p class="sku">{{ item.sku }}</p>
+      <div class="price-row">
+        <span class="price">&#8377;{{ '%.2f'|format(item.price_paise / 100) }}</span>
+        <span class="tax">{{ item.tax_rate_percent }}% tax</span>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  <p class="fine">Placeholder catalogue. Nothing here can actually be bought.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Seller verification, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Seller verification</h1>
+  <p class="lede">
+    A payout cannot be released without this, so it runs on the legitimate use basis in
+    section 7 rather than on consent. Refusing means no payout, which is exactly why
+    pretending to ask for consent here would be dishonest.
+  </p>
+  <h2>What we keep, and what we do not</h2>
+  <ul class="plain">
+    <li>The permanent account number, encrypted.</li>
+    <li>The last four digits of the Aadhaar number, and nothing more of it. The full
+      number is never written to a column.</li>
+    <li>The registered postal address and pincode, encrypted.</li>
+    <li>Kept for eight years after the last payout, then deleted by the scheduled job.</li>
+  </ul>
+  <form method="post" action="{{ url_for('account.kyc_page') }}" class="stack">
+    <div class="field">
+      <label for="pan_number">Permanent account number</label>
+      <input type="text" id="pan_number" name="pan_number" maxlength="10" required
+             placeholder="AAAAA0000A">
+    </div>
+    <div class="field">
+      <label for="aadhaar_last_four">Last four digits of the Aadhaar number</label>
+      <input type="text" id="aadhaar_last_four" name="aadhaar_last_four" maxlength="4"
+             inputmode="numeric" required placeholder="0000">
+    </div>
+    <div class="field">
+      <label for="address_line">Registered address</label>
+      <input type="text" id="address_line" name="address_line" autocomplete="street-address">
+    </div>
+    <div class="field">
+      <label for="pincode">Pincode</label>
+      <input type="text" id="pincode" name="pincode" maxlength="6" autocomplete="postal-code">
+    </div>
+    <button type="submit" class="cta">Submit for verification</button>
+  </form>
+  <p class="fine">
+    Enter invented values only. A real identifier must never be typed into a
+    demonstration fixture.
+  </p>
+</section>
+{% endblock %}

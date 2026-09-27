@@ -1,0 +1,45 @@
+# Secrets — never commit
+.env
+.env.local
+*.pem
+*.key
+credentials.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+.vite/
+*.log
+
+# Scanner workspace (uploaded code under analysis)
+backend/workspace/
+*.zip
+*.tar.gz
+
+# Playwright
+playwright-report/
+test-results/
+
+# Reports
+*.pdf
+!docs/**/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp

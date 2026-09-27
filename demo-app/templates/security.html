@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}How we protect your data, Bharat Bazaar{% endblock %}
+{% block content %}
+<article class="notice">
+  <h1>How we protect your data</h1>
+  <p class="meta">Version {{ policy_version }}. Section 8(5) of the Act and rule 6.</p>
+
+  <h2>At rest</h2>
+  <p>
+    Every column that holds personal data is encrypted with a per column cipher before
+    it reaches the database file, so a copy of that file is unreadable without the key.
+    Passphrases are not encrypted, they are put through a slow one way key derivation
+    function with a per account salt, which means we cannot read them back even if we
+    wanted to.
+  </p>
+
+  <h2>Finding a row without decrypting the table</h2>
+  <p>
+    A sign in has to find one account out of many. Rather than decrypt every row, we keep
+    a keyed digest of the contact address beside the encrypted value and look the digest
+    up. The key is held separately from the index, so the column cannot be attacked with
+    a precomputed list of common addresses.
+  </p>
+
+  <h2>Access</h2>
+  <p>
+    Every page that can reach personal data is behind a sign in, and the internal reports
+    are behind a second check on top of that. Each read and each change is written to an
+    audit trail with the purpose it was made under. The trail holds a reference to the
+    row, never a second copy of its contents, and nothing personal is written to the
+    application log.
+  </p>
+
+  <h2>In transit</h2>
+  <p>
+    A deployment terminates TLS in front of the application and sends a strict transport
+    security header. This fixture is served over plain HTTP on the loopback interface so
+    that it can be scanned locally, which a scan will and should report.
+  </p>
+
+  <h2>In the browser</h2>
+  <p>
+    A content security policy allows scripts, styles and images from this address only.
+    There is no inline script anywhere, framing is refused, the referrer is not sent, and
+    geolocation, camera and microphone are switched off.
+  </p>
+
+  <h2>If something goes wrong</h2>
+  <p>
+    A breach is recorded the moment it is detected, with a deadline of seventy two hours
+    written onto the record itself. Two intimations then have to happen: one to the Data
+    Protection Board of India and one to every affected person. They are tracked
+    separately, because a system with only one of them will quietly skip the other.
+  </p>
+</article>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Returns and refunds, Bharat Bazaar{% endblock %}
+{% block content %}
+<article class="notice">
+  <h1>Returns and refunds</h1>
+  <p class="meta">Version {{ policy_version }}.</p>
+  <p>
+    Fourteen days from delivery for an unused item in its original packing. A refund goes
+    back the way it was paid.
+  </p>
+  <h2>What we keep about a return</h2>
+  <p>
+    The order reference, the reason you gave and the refund amount, under the order
+    processing purpose, for eight years, because tax law requires it. A return does not
+    create a new purpose and does not change anything else we hold. The full table is in
+    section 2 of the <a href="{{ url_for('privacy_notice') }}">privacy notice</a>.
+  </p>
+</article>
+{% endblock %}

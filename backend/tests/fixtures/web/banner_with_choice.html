@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deshmukh Travels - Book a trip</title>
+<style>
+  html, body { overflow: hidden; }
+  body { font-family: sans-serif; margin: 0; padding: 24px; }
+  .cmp-backdrop {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); z-index: 90;
+  }
+  #onetrust-banner-sdk {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    padding: 40px; background: #fff; z-index: 100;
+  }
+  #onetrust-banner-sdk button { margin: 8px 8px 0 0; padding: 8px 14px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Book your Konkan trip</h1>
+<p>Weekend departures from Pune and Mumbai, with hotel and breakfast included.
+Choose your travel dates and we will hold the seat for thirty minutes while you
+pay. Group bookings of six or more get a dedicated coordinator.</p>
+</main>
+
+<div class="cmp-backdrop"></div>
+
+<div id="onetrust-banner-sdk" role="dialog" aria-modal="true" aria-label="Cookie consent">
+  <h2>Your privacy choices</h2>
+  <p>We and our partners use cookies to run this site and to measure and
+  personalise what you see. You can accept everything, refuse everything, or
+  choose per purpose.</p>
+  <label><input type="checkbox" checked disabled> Strictly necessary cookies</label>
+  <label><input type="checkbox" name="analytics_cookies"> Analytics cookies</label>
+  <label><input type="checkbox" name="targeting_cookies"> Targeting cookies</label>
+  <button id="ot-accept">Accept All</button>
+  <button id="ot-reject">Reject All</button>
+  <button id="ot-manage">Manage Preferences</button>
+</div>
+</body>
+</html>

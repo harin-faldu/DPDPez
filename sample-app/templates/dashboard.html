@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}Your account{% endblock %} {% block
+content %}
+<!--
+  INTENTIONALLY VULNERABLE DEMO FIXTURE. DO NOT DEPLOY.
+  Planted violations for this template are listed in README.md (R4, R10).
+-->
+<h1>Welcome back, {{ record.full_name }}</h1>
+<p>Your KYC status: {% if record.aadhaar_number %}verified{% else %}pending{%
+endif %}</p>
+<ul>
+  <li>Email: {{ record.email }}</li>
+  <li>Mobile: {{ record.phone_number }}</li>
+  <li>Delivery address: {{ record.address_line }}</li>
+</ul>
+<p>Need a change? Write to our support team from the app.</p>
+{% endblock %}

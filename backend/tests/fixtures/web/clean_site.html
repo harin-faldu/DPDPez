@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Anand Stationers - Contact us</title>
+<style>
+  body { font-family: sans-serif; margin: 0; padding: 24px; }
+  form label { display: block; margin: 8px 0 2px; }
+</style>
+</head>
+<body>
+<header><strong>Anand Stationers</strong></header>
+
+<main>
+<h1>Contact us</h1>
+<p>We are a family run stationery shop in Vadodara. Send us a message and we
+will reply within two working days. Nothing on this page loads from another
+company, and no cookie is written before you send the form.</p>
+
+<form action="/contact" method="post">
+  <label for="name">Your name</label>
+  <input id="name" name="name" type="text" required>
+
+  <label for="email">Email address</label>
+  <input id="email" name="email" type="email" autocomplete="email" required>
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" rows="4"></textarea>
+
+  <label>
+    <input type="checkbox" name="terms_accepted">
+    I have read the Privacy Policy
+  </label>
+
+  <button type="submit">Send message</button>
+</form>
+</main>
+
+<footer>
+  <a href="/privacy">Privacy Policy</a>
+  <p>Questions about your data? Write to the shop owner at hello@anand.example.</p>
+</footer>
+</body>
+</html>

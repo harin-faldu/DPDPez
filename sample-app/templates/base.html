@@ -1,0 +1,87 @@
+<!doctype html>
+<!--
+  INTENTIONALLY VULNERABLE DEMO FIXTURE. DO NOT DEPLOY.
+  Planted violations for this template are listed in README.md (R3, R11).
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Bharat Bazaar{% endblock %}</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 0;
+        background: #f6f7f9;
+        color: #1c1f24;
+      }
+      header {
+        background: #0f2f4f;
+        color: #fff;
+        padding: 16px 24px;
+      }
+      header a {
+        color: #cfe2f3;
+        margin-right: 16px;
+        text-decoration: none;
+      }
+      main {
+        max-width: 640px;
+        margin: 32px auto;
+        background: #fff;
+        padding: 24px;
+        border: 1px solid #dfe3e8;
+        border-radius: 8px;
+      }
+      label {
+        display: block;
+        margin: 12px 0 4px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"],
+      input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #c7ccd1;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .consent {
+        margin: 20px 0;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      button {
+        margin-top: 16px;
+        background: #0f2f4f;
+        color: #fff;
+        border: 0;
+        padding: 10px 18px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      footer {
+        max-width: 640px;
+        margin: 0 auto 40px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Bharat Bazaar</strong>
+      <nav style="margin-top: 8px">
+        <a href="/">Home</a>
+        <a href="/signup">Create account</a>
+        <a href="/kyc">Complete KYC</a>
+      </nav>
+    </header>
+    <main>{% block content %}{% endblock %}</main>
+    <footer>Bharat Bazaar demo storefront. Internal test fixture only.</footer>
+  </body>
+</html>

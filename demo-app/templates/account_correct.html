@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Correct my details, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h1>Correct my details</h1>
+  <p class="lede">Section 12 of the Act. Leave a box empty to keep what is already there.</p>
+  <form method="post" action="/account/correction" class="stack">
+    <div class="field">
+      <label for="full_name">Name</label>
+      <input type="text" id="full_name" name="full_name" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="phone">Telephone number</label>
+      <input type="tel" id="phone" name="phone" autocomplete="tel">
+    </div>
+    <button type="submit" class="cta">Save the correction</button>
+  </form>
+  <p class="fine">
+    Changing the contact address needs a confirmation sent to the new address, so it goes
+    through <a href="/grievance">the complaint page</a> rather than this form.
+  </p>
+</section>
+{% endblock %}

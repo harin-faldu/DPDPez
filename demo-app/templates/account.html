@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}My account, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>My account</h1>
+  {% if minor %}
+  <div class="callout">
+    This account is flagged as belonging to a person under eighteen. Guardian
+    confirmation is {{ 'recorded' if guardian_ok else 'still outstanding' }}. Analytics
+    counting and promotional email are refused for this account either way.
+  </div>
+  {% endif %}
+
+  <h2>Your choices</h2>
+  <ul class="plain">
+    {% for row in optional %}
+    <li>{{ row.shown_as }}: <strong>{{ 'on' if choices.get(row.key) else 'off' }}</strong></li>
+    {% endfor %}
+  </ul>
+  <p><a href="/consent/preferences">Manage preferences</a></p>
+
+  <h2>Your rights</h2>
+  <ul class="plain">
+    <li><a href="/account/my-data">See and download everything we hold, section 11</a></li>
+    <li><a href="/account/correction">Correct something, section 12</a></li>
+    <li><a href="/account/delete-my-data">Erase this account, section 12(3)</a></li>
+    <li><a href="/account/nominee">Name a nominee, section 14</a></li>
+    <li><a href="/grievance">Raise a complaint, section 13</a></li>
+    <li><a href="/account/audit-trail">See who has read your data</a></li>
+  </ul>
+
+  <h2>Selling on Bharat Bazaar</h2>
+  <p><a href="{{ url_for('account.kyc_page') }}">Submit seller verification</a></p>
+  <p class="fine">Notice version {{ policy_version }}.</p>
+</section>
+{% endblock %}

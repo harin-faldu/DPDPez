@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Nominee for my account, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel narrow">
+  <h1>Name a nominee</h1>
+  <p class="lede">
+    Section 14 of the Act. A nominee can exercise your rights over this account if you
+    die or become unable to act for yourself.
+  </p>
+  <form method="post" action="/account/nominee" class="stack">
+    <div class="field">
+      <label for="nominee_label">Nominee name</label>
+      <input type="text" id="nominee_label" name="nominee_label" required>
+    </div>
+    <div class="field">
+      <label for="nominee_contact">Nominee contact address</label>
+      <input type="email" id="nominee_contact" name="nominee_contact"
+             placeholder="nominee@example.invalid">
+    </div>
+    <div class="field">
+      <label for="relationship">Relationship to you</label>
+      <input type="text" id="relationship" name="relationship">
+    </div>
+    <button type="submit" class="cta">Record this nominee</button>
+  </form>
+  <p class="fine">
+    We contact the nominee only when the nomination is acted on, and we keep the record
+    for as long as the account exists.
+  </p>
+</section>
+{% endblock %}

@@ -1,0 +1,6 @@
+# Generated at runtime by the fixture. Never commit either of these.
+bharat_bazaar.sqlite3
+local_keys.txt
+.venv/
+__pycache__/
+*.pyc

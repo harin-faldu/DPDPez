@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Manage preferences, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Manage preferences</h1>
+  <p class="lede">
+    Section 6(4) of the Act: withdrawing has to be as easy as giving. This is the same
+    form either way, and an unticked box is treated as a withdrawal rather than as
+    silence.
+  </p>
+
+  <form method="post" action="/consent/preferences" class="stack">
+    <fieldset>
+      <legend>Optional purposes</legend>
+      {% for row in optional %}
+      <div class="choice">
+        <input type="checkbox" id="pref-{{ row.key }}" name="{{ row.key }}" value="yes"
+               {% if choices.get(row.key) %}checked{% endif %}>
+        <label for="pref-{{ row.key }}">
+          I consent to {{ row.shown_as|lower }}: {{ row.explains }}
+        </label>
+      </div>
+      {% endfor %}
+    </fieldset>
+    <button type="submit" class="cta">Save my choices</button>
+  </form>
+
+  <h2>Withdraw one purpose outright</h2>
+  {% for row in optional %}
+  <form method="post" action="/consent/withdraw" class="inline-form">
+    <input type="hidden" name="purpose" value="{{ row.key }}">
+    <button type="submit" class="equal-weight">Withdraw {{ row.shown_as|lower }}</button>
+  </form>
+  {% endfor %}
+
+  <h2>Purposes we do not ask consent for</h2>
+  <p class="fine">
+    These run on the legitimate use basis in section 7. We tell you about them and we do
+    not pretend to ask, because a consent you cannot refuse is not a consent.
+  </p>
+  <table class="grid">
+    <thead><tr><th>Purpose</th><th>Why</th><th>Retention</th></tr></thead>
+    <tbody>
+      {% for row in notified if row.basis != 'consent' %}
+      <tr><td>{{ row.shown_as }}</td><td>{{ row.explains }}</td><td>{{ row.keep_for_days }} days</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="fine">Notice version {{ policy_version }}.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Create an account, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Create an account</h1>
+  <p class="lede">
+    Read the <a href="{{ url_for('privacy_notice') }}">privacy notice</a> first. It is
+    linked here and in the header of every page, before any of these boxes, because a
+    notice that arrives after you have typed your details is not a notice.
+  </p>
+
+  <h2>What this form collects, and why</h2>
+  <ul class="plain">
+    <li><strong>Contact address.</strong> To sign you in and to send order updates.</li>
+    <li><strong>Name.</strong> To put on the delivery label.</li>
+    <li><strong>Telephone number.</strong> Optional, for the courier to call you.</li>
+    <li><strong>Date of birth.</strong> To work out whether the account belongs to a
+      person under eighteen. If it does, a parent or guardian has to confirm it, and we
+      do not count analytics for it or send it offers.</li>
+    <li><strong>Passphrase.</strong> Put through a slow one way function. We cannot read it.</li>
+  </ul>
+
+  <form method="post" action="{{ url_for('signup') }}" class="stack" novalidate>
+    <div class="field">
+      <label for="email">Contact address</label>
+      <input type="email" id="email" name="email" autocomplete="email" required
+             placeholder="you@example.invalid">
+    </div>
+    <div class="field">
+      <label for="full_name">Name</label>
+      <input type="text" id="full_name" name="full_name" autocomplete="name" required
+             placeholder="Name as it should appear on a delivery label">
+    </div>
+    <div class="field">
+      <label for="phone">Telephone number, optional</label>
+      <input type="tel" id="phone" name="phone" autocomplete="tel"
+             placeholder="+91 90000 00000">
+    </div>
+    <div class="field">
+      <label for="dob">Date of birth</label>
+      <input type="date" id="dob" name="dob" autocomplete="bday" required>
+      <p class="fine">Used to establish age, and for nothing else.</p>
+    </div>
+    <div class="field">
+      <label for="password">Passphrase, at least ten characters</label>
+      <input type="password" id="password" name="password" autocomplete="new-password" required>
+    </div>
+
+    <fieldset>
+      <legend>If this account belongs to someone under eighteen</legend>
+      <p class="fine">
+        Leave these empty if the account holder is an adult. Section 9 of the Act needs
+        verifiable consent from a parent or lawful guardian before a child's personal
+        data can be processed, so we send a confirmation to the address below.
+      </p>
+      <div class="field">
+        <label for="guardian_contact">Parent or guardian contact address</label>
+        <input type="email" id="guardian_contact" name="guardian_contact"
+               placeholder="guardian@example.invalid">
+      </div>
+      <div class="field">
+        <label for="guardian_label">Parent or guardian name</label>
+        <input type="text" id="guardian_label" name="guardian_label">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Required</legend>
+      <div class="choice">
+        <input type="checkbox" id="notice_acknowledged" name="notice_acknowledged" value="yes" required>
+        <label for="notice_acknowledged">
+          I have read the privacy notice, version {{ policy_version }}.
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Optional, and separate from creating the account</legend>
+      <p class="fine">
+        These start switched off. Leaving them off does not stop you creating an
+        account or buying anything, and you can change either of them later.
+      </p>
+      {% for row in optional %}
+      <div class="choice">
+        <input type="checkbox" id="signup-{{ row.key }}" name="{{ row.key }}" value="yes">
+        <label for="signup-{{ row.key }}">
+          I consent to {{ row.shown_as|lower }}: {{ row.explains }}
+        </label>
+      </div>
+      {% endfor %}
+    </fieldset>
+
+    <button type="submit" class="cta">Create account</button>
+  </form>
+
+  <p class="fine">
+    Enter invented values only. This is a demonstration fixture and the data goes into
+    a local file.
+  </p>
+</section>
+{% endblock %}

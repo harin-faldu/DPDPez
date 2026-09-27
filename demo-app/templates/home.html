@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Bharat Bazaar, handmade and home goods{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Bharat Bazaar</h1>
+  <p class="lede">
+    Handmade and home goods from small Indian workshops. Buy without an account, or
+    open one to keep your delivery address and order history in one place.
+  </p>
+  <div class="cta-row">
+    <a class="cta" href="{{ url_for('catalogue') }}">Browse the shop</a>
+    <a class="cta secondary" href="{{ url_for('signup') }}">Create an account</a>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>What we collect, and why, before you type anything</h2>
+  <p>
+    The full text is on the <a href="{{ url_for('privacy_notice') }}">privacy notice</a>,
+    linked from the top of every page rather than only from the bottom. The short
+    version is below.
+  </p>
+  <ul class="plain">
+    <li><strong>Account creation and sign in.</strong> Contact address, name, telephone
+      number and date of birth. Kept for five years after the account closes.</li>
+    <li><strong>Order processing and delivery.</strong> Delivery address and order
+      history. Kept for eight years, because tax law requires it.</li>
+    <li><strong>Seller verification.</strong> Permanent account number and the last four
+      digits of an Aadhaar number, for sellers only, because a payout cannot be
+      released without it.</li>
+    <li><strong>Complaint handling.</strong> Your correspondence, kept for three years.</li>
+    <li><strong>Usage analytics.</strong> Optional, off unless you switch it on, counted
+      on this server with no outside company involved.</li>
+    <li><strong>Offers by email.</strong> Optional, off unless you switch it on.</li>
+  </ul>
+</section>
+
+<section class="panel">
+  <h2>Choices you can make at any time</h2>
+  <div class="two-col">
+    <div>
+      <h3>Optional purposes</h3>
+      <div class="chip-row">
+        {% for row in optional %}
+        <span class="chip {{ 'on' if chosen.get(row.key) else 'off' }}">
+          {{ row.shown_as }} &middot; {{ 'on' if chosen.get(row.key) else 'off' }}
+        </span>
+        {% endfor %}
+      </div>
+      <p><a href="/consent/preferences">Manage preferences</a></p>
+    </div>
+    <div>
+      <h3>Your rights</h3>
+      <ul class="plain">
+        <li><a href="/account/my-data">See and download everything we hold</a></li>
+        <li><a href="/account/correction">Correct something that is wrong</a></li>
+        <li><a href="/account/delete-my-data">Have it erased</a></li>
+        <li><a href="/account/nominee">Name a nominee to act for you</a></li>
+        <li><a href="/grievance">Complain, and escalate if we do not fix it</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="panel note">
+  <h2>About this site</h2>
+  <p>
+    This is a demonstration fixture built to be scanned. It runs on the loopback
+    interface only, every name, address and identifier in it is invented, and the
+    email domains end in .invalid so they can never resolve. Nothing here contacts
+    any outside service.
+  </p>
+</section>
+{% endblock %}

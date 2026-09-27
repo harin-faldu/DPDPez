@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Notice for under 18 accounts, Bharat Bazaar{% endblock %}
+{% block content %}
+<article class="notice">
+  <h1>Notice for accounts held by someone under eighteen</h1>
+  <p class="meta">Version {{ policy_version }}. Section 9 of the Act.</p>
+
+  <h2>How we know</h2>
+  <p>
+    Every account gives a date of birth when it is created. We work the age out from it
+    rather than asking someone to tick a box claiming to be an adult, and a date we
+    cannot read is treated as a child rather than as an adult.
+  </p>
+
+  <h2>What changes for a child's account</h2>
+  <ul class="plain">
+    <li>A parent or lawful guardian has to confirm the account through a challenge sent
+      to their own contact address. Until they do, the account can sign in and do nothing
+      else.</li>
+    <li>Analytics counting is refused outright for the account, whatever any consent
+      record says, because section 9(3) prohibits tracking a child rather than merely
+      requiring consent for it.</li>
+    <li>No promotional email is sent to the account, and it is never included in a
+      campaign audience.</li>
+  </ul>
+
+  <h2>If a guardian wants something removed</h2>
+  <p>
+    Write to the Grievance Officer, whose address is at the bottom of every page, or use
+    the <a href="/account/delete-my-data">erasure page</a> from the account itself. We
+    answer within thirty days.
+  </p>
+</article>
+{% endblock %}

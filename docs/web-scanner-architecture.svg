@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" width="1280" height="820" font-family="Segoe UI, Calibri, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8FA6C4"/>
+    </marker>
+    <marker id="arAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E07A3F"/>
+    </marker>
+    <style>
+      .t   { fill:#0F1E3D; font-weight:700; }
+      .sub { fill:#5A6B84; font-size:12px; }
+      .mono{ font-family:Consolas, "Courier New", monospace; }
+      .lbl { fill:#2E6F95; font-size:11px; font-weight:700; letter-spacing:1.2px; }
+      .wht { fill:#FFFFFF; }
+      .ice { fill:#CADCFC; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="820" fill="#FFFFFF"/>
+
+  <text x="48" y="52" class="lbl">DPDP COMPLIANCE SELF-CHECK</text>
+  <text x="48" y="86" class="t" font-size="30" font-family="Cambria, Georgia, serif">Web Scanner Architecture</text>
+  <text x="48" y="112" class="sub" font-size="13.5">One URL in, one evidence object out. Nothing left of the rules engine makes a compliance judgement.</text>
+
+  <!-- input -->
+  <rect x="48" y="150" width="150" height="58" rx="8" fill="#0F1E3D"/>
+  <text x="123" y="176" class="wht" font-size="14" font-weight="700" text-anchor="middle">Target URL</text>
+  <text x="123" y="195" class="ice" font-size="11" text-anchor="middle">user supplied</text>
+  <line x1="198" y1="179" x2="232" y2="179" stroke="#8FA6C4" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- stage 1 ssrf -->
+  <rect x="234" y="140" width="196" height="78" rx="8" fill="#FFF3EF" stroke="#B3402F" stroke-width="1.5"/>
+  <circle cx="256" cy="162" r="12" fill="#B3402F"/>
+  <text x="256" y="167" class="wht" font-size="12" font-weight="700" text-anchor="middle">1</text>
+  <text x="276" y="167" class="t" font-size="14">SSRF guard</text>
+  <text x="248" y="189" class="sub" font-size="11">scheme · DNS resolve first</text>
+  <text x="248" y="205" class="sub" font-size="11">private · loopback · metadata</text>
+  <line x1="430" y1="179" x2="464" y2="179" stroke="#8FA6C4" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- stage 2 browser -->
+  <rect x="466" y="140" width="210" height="78" rx="8" fill="#F4F7FB" stroke="#DCE6F2" stroke-width="1.5"/>
+  <circle cx="488" cy="162" r="12" fill="#2E6F95"/>
+  <text x="488" y="167" class="wht" font-size="12" font-weight="700" text-anchor="middle">2</text>
+  <text x="508" y="167" class="t" font-size="14">Browser session</text>
+  <text x="480" y="189" class="sub" font-size="11">Playwright chromium</text>
+  <text x="480" y="205" class="sub" font-size="11">recorder attached before first nav</text>
+  <line x1="676" y1="179" x2="710" y2="179" stroke="#8FA6C4" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- stage 3 load -->
+  <rect x="712" y="140" width="200" height="78" rx="8" fill="#F4F7FB" stroke="#DCE6F2" stroke-width="1.5"/>
+  <circle cx="734" cy="162" r="12" fill="#2E6F95"/>
+  <text x="734" y="167" class="wht" font-size="12" font-weight="700" text-anchor="middle">3</text>
+  <text x="754" y="167" class="t" font-size="14">Load and settle</text>
+  <text x="726" y="189" class="sub" font-size="11">network idle, 8s cap</text>
+  <text x="726" y="205" class="sub" font-size="11">+1.2s for tag-manager injects</text>
+
+  <!-- note on why -->
+  <rect x="936" y="140" width="296" height="78" rx="8" fill="#FFFFFF" stroke="#E07A3F" stroke-width="1.5"/>
+  <text x="954" y="164" fill="#E07A3F" font-size="11.5" font-weight="700">Why the wait matters</text>
+  <text x="954" y="184" class="sub" font-size="11">domcontentloaded fires before the tag</text>
+  <text x="954" y="199" class="sub" font-size="11">manager runs. A 440KB homepage gave</text>
+  <text x="954" y="214" class="sub" font-size="11">zero links, cookies and trackers.</text>
+
+  <!-- stage 4 extraction band -->
+  <line x1="812" y1="218" x2="812" y2="248" stroke="#8FA6C4" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="48" y="250" width="1184" height="188" rx="10" fill="#F4F7FB" stroke="#DCE6F2" stroke-width="1.5"/>
+  <circle cx="74" cy="276" r="13" fill="#2E6F95"/>
+  <text x="74" y="281" class="wht" font-size="12" font-weight="700" text-anchor="middle">4</text>
+  <text x="96" y="282" class="t" font-size="15">Per page, up to MAX_CRAWL_PAGES</text>
+  <text x="404" y="282" class="sub" font-size="12">every read below happens on a cold load with no interaction</text>
+
+  <!-- 4 sub cards -->
+  <rect x="68" y="302" width="276" height="120" rx="8" fill="#FFFFFF" stroke="#DCE6F2"/>
+  <text x="86" y="326" class="t" font-size="13">DOM reads</text>
+  <text x="86" y="348" class="sub" font-size="11">forms · consent elements · age fields</text>
+  <text x="86" y="365" class="sub" font-size="11">sensitive fields (7 categories)</text>
+  <text x="86" y="382" class="sub" font-size="11">marketing opt-ins vs terms acceptance</text>
+  <text x="86" y="399" class="sub" font-size="11">anchors for the crawl queue</text>
+
+  <rect x="358" y="302" width="276" height="120" rx="8" fill="#FFFFFF" stroke="#E07A3F" stroke-width="1.5"/>
+  <text x="376" y="326" fill="#E07A3F" font-size="13" font-weight="700">Network capture</text>
+  <text x="376" y="348" class="sub" font-size="11">every request, not just script tags</text>
+  <text x="376" y="365" class="sub" font-size="11">147 tracker hosts, 5 categories</text>
+  <text x="376" y="382" class="sub" font-size="11">beacon · xhr · image · iframe · font</text>
+  <text x="376" y="399" class="mono" font-size="11" fill="#B3402F">before_consent = true by default</text>
+
+  <rect x="648" y="302" width="276" height="120" rx="8" fill="#FFFFFF" stroke="#DCE6F2"/>
+  <text x="666" y="326" class="t" font-size="13">Consent banner</text>
+  <text x="666" y="348" class="sub" font-size="11">46 container selectors</text>
+  <text x="666" y="365" class="sub" font-size="11">20 accept / 22 reject / 18 manage</text>
+  <text x="666" y="382" class="sub" font-size="11">granularity, blocking, manage link</text>
+  <text x="666" y="399" class="sub" font-size="11">never clicked, only observed</text>
+
+  <rect x="938" y="302" width="276" height="120" rx="8" fill="#FFFFFF" stroke="#DCE6F2"/>
+  <text x="956" y="326" class="t" font-size="13">Cookies and headers</text>
+  <text x="956" y="348" class="sub" font-size="11">106 names · 36 prefixes · 15 substrings</text>
+  <text x="956" y="365" class="sub" font-size="11">necessary / analytics / advertising</text>
+  <text x="956" y="382" class="sub" font-size="11">third-party flag, expiry, set-before</text>
+  <text x="956" y="399" class="sub" font-size="11">6 security headers on entry response</text>
+
+  <!-- stage 5 policies -->
+  <line x1="300" y1="438" x2="300" y2="468" stroke="#8FA6C4" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="48" y="470" width="504" height="104" rx="8" fill="#F4F7FB" stroke="#DCE6F2" stroke-width="1.5"/>
+  <circle cx="74" cy="496" r="13" fill="#2E6F95"/>
+  <text x="74" y="501" class="wht" font-size="12" font-weight="700" text-anchor="middle">5</text>
+  <text x="96" y="502" class="t" font-size="14">Policy discovery</text>
+  <text x="68" y="526" class="sub" font-size="11.5">By link (7 keywords, footer-only flagged) AND by probing 11 conventional</text>
+  <text x="68" y="543" class="sub" font-size="11.5">paths. Records kind, reachable, discovered_via, word_count.</text>
+  <text x="68" y="563" class="sub" font-size="11.5" font-style="italic">A policy nobody links to is still a policy. DPO contact is read from its text.</text>
+
+  <!-- stage 6 integrity -->
+  <line x1="980" y1="438" x2="980" y2="468" stroke="#E07A3F" stroke-width="2" marker-end="url(#arAmber)"/>
+  <rect x="576" y="470" width="656" height="104" rx="8" fill="#FFF8F4" stroke="#E07A3F" stroke-width="1.5"/>
+  <circle cx="602" cy="496" r="13" fill="#E07A3F"/>
+  <text x="602" y="501" class="wht" font-size="12" font-weight="700" text-anchor="middle">6</text>
+  <text x="624" y="502" class="t" font-size="14">Crawl integrity</text>
+  <text x="596" y="526" class="sub" font-size="11.5">Status 401/403/406/407/429/451 · 26 challenge markers · body under 200 chars</text>
+  <text x="596" y="546" class="mono" font-size="11.5" fill="#B3402F">crawl_blocked = true  ->  affected checks return not_applicable</text>
+  <text x="596" y="565" class="sub" font-size="11.5" font-style="italic">Never a pass. A clean result we could not verify is the worst output this tool has.</text>
+
+  <!-- result object -->
+  <line x1="640" y1="574" x2="640" y2="602" stroke="#8FA6C4" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="48" y="604" width="700" height="96" rx="8" fill="#0F1E3D"/>
+  <text x="70" y="632" class="wht" font-size="15" font-weight="700">WebScanResult</text>
+  <text x="70" y="656" class="mono ice" font-size="11.5">network_requests · cookies · forms · consent_banner · policy_documents</text>
+  <text x="70" y="675" class="mono ice" font-size="11.5">sensitive_fields · marketing_optins · security_headers · crawl_blocked</text>
+  <text x="70" y="692" class="mono" font-size="11.5" fill="#E07A3F">derived: trackers_before_consent · cookies_before_consent · third_party_hosts</text>
+
+  <rect x="768" y="604" width="464" height="96" rx="8" fill="#F4F7FB" stroke="#DCE6F2" stroke-width="1.5"/>
+  <text x="790" y="632" class="t" font-size="15">Rules engine</text>
+  <text x="790" y="656" class="sub" font-size="11.5">21 deterministic web checks across Notice, Consent,</text>
+  <text x="790" y="673" class="sub" font-size="11.5">Children, Security, Rights and Board readiness.</text>
+  <text x="790" y="692" class="sub" font-size="11.5" font-style="italic">Pure functions. No AI, no clock, no randomness.</text>
+
+  <line x1="748" y1="652" x2="766" y2="652" stroke="#8FA6C4" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- footer -->
+  <text x="48" y="742" class="sub" font-size="11.5">The scanner collects. It never concludes. Every judgement lives in the rules engine, which is what lets any verdict be</text>
+  <text x="48" y="759" class="sub" font-size="11.5">recomputed by hand from the checks that produced it, and why the AI layer can explain a finding without changing one.</text>
+  <text x="48" y="788" class="lbl" font-size="10.5">WEB SCANNER PIPELINE · THE CODE SCANNER IS A SEPARATE PIPELINE AND IS NOT SHOWN HERE</text>
+</svg>

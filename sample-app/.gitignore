@@ -1,0 +1,5 @@
+# Runtime artefacts of the demo fixture. Never commit the database, even
+# though everything in it is synthetic.
+demo_storefront.db
+*.db
+instance/

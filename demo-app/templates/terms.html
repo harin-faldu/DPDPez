@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Terms of use, Bharat Bazaar{% endblock %}
+{% block content %}
+<article class="notice">
+  <h1>Terms of use</h1>
+  <p class="meta">Version {{ policy_version }}.</p>
+  <p>
+    This is a demonstration fixture and nothing on it can be bought, so these terms
+    exist to make the site realistic to scan rather than to bind anyone.
+  </p>
+  <h2>Accounts</h2>
+  <p>
+    One account per person. An account held by a person under eighteen needs a parent or
+    lawful guardian to confirm it before it can be used for anything beyond signing in.
+    Accepting these terms is not consent to the optional purposes. Those are asked for
+    separately and can be refused without losing access to anything.
+  </p>
+  <h2>Sellers</h2>
+  <p>
+    A seller payout requires identity verification. We ask for a permanent account
+    number and the last four digits of an Aadhaar number, and we keep no more of the
+    Aadhaar number than that.
+  </p>
+  <h2>Privacy</h2>
+  <p>
+    How we handle personal data is set out in the
+    <a href="{{ url_for('privacy_notice') }}">privacy notice</a>. Nothing in these terms
+    reduces the rights the Digital Personal Data Protection Act 2023 gives you.
+  </p>
+</article>
+{% endblock %}

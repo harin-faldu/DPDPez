@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Complaint handling and escalation, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Complaint handling and escalation</h1>
+  <p class="lede">
+    Section 13 of the Act. Anyone can read this procedure. Filing against an account
+    needs a sign in, so that we answer the right person.
+  </p>
+
+  <h2>How it works</h2>
+  <ol class="plain">
+    <li>Tell us, using the form below or by writing to the officer whose address is at the
+      bottom of every page.</li>
+    <li>We record it with a deadline of {{ response_days }} days written onto the ticket
+      itself, so the clock is a stored fact rather than a promise.</li>
+    <li>We answer within that window and tell you what we did.</li>
+    <li>If you are not satisfied, or we miss the window, you may approach the Data
+      Protection Board of India under section 13(3). You do not need our permission and
+      you do not have to tell us first that you intend to.</li>
+  </ol>
+
+  {% if signed_in %}
+  <h2>Raise a complaint</h2>
+  <form method="post" action="/grievance" class="stack">
+    <div class="field">
+      <label for="summary">One line summary</label>
+      <input type="text" id="summary" name="summary" maxlength="200" required>
+    </div>
+    <div class="field">
+      <label for="detail">What happened</label>
+      <textarea id="detail" name="detail" rows="6"></textarea>
+    </div>
+    <button type="submit" class="cta">Register the complaint</button>
+  </form>
+
+  <h2>Your complaints</h2>
+  {% if tickets %}
+  <table class="grid">
+    <thead><tr><th>Summary</th><th>Status</th><th>Answer due</th><th>Closed</th></tr></thead>
+    <tbody>
+      {% for row in tickets %}
+      <tr>
+        <td>{{ row.summary }}</td>
+        <td>{{ row.status }}</td>
+        <td>{{ row.respond_by }}</td>
+        <td>{{ row.resolved_at or 'open' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p>None raised yet.</p>{% endif %}
+  {% else %}
+  <p><a class="cta" href="{{ url_for('login', next_path='/grievance') }}">Sign in to file one</a></p>
+  {% endif %}
+</section>
+{% endblock %}

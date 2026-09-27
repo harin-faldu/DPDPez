@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}My data, Bharat Bazaar{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Everything we hold about you</h1>
+  <p class="lede">
+    Section 11 of the Act. This page is built from the live rows rather than from a copy,
+    and reading it is itself written to the audit trail.
+  </p>
+  <p><a class="cta secondary" href="/account/my-data?as=json">Download as JSON</a></p>
+
+  <h2>Account</h2>
+  <table class="grid">
+    <tbody>
+      {% for label, value in export.account.items() %}
+      <tr><th>{{ label|replace('_', ' ') }}</th><td>{{ value }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Seller verification</h2>
+  {% if export.verification %}
+  <table class="grid">
+    <thead><tr><th>Field</th><th>Value</th></tr></thead>
+    <tbody>
+      {% for row in export.verification %}
+        {% for label, value in row.items() %}
+        <tr><th>{{ label|replace('_', ' ') }}</th><td>{{ value }}</td></tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p>Nothing held.</p>{% endif %}
+
+  <h2>Orders</h2>
+  {% if export.orders %}
+  <ul class="plain">
+    {% for row in export.orders %}
+    <li>{{ row.sku }}, deliver to {{ row.deliver_to }}, held until {{ row.held_until }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}<p>No orders.</p>{% endif %}
+
+  <h2>Complaints</h2>
+  {% if export.grievances %}
+  <ul class="plain">
+    {% for row in export.grievances %}
+    <li>{{ row.summary }}, status {{ row.status }}, answer due {{ row.respond_by }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}<p>None raised.</p>{% endif %}
+
+  <h2>Nominees</h2>
+  {% if export.nominations %}
+  <ul class="plain">
+    {% for row in export.nominations %}
+    <li>{{ row.nominated }}, reachable at {{ row.reach_at }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}<p>None named. <a href="/account/nominee">Name one</a>.</p>{% endif %}
+
+  <h2>Consent history</h2>
+  <table class="grid">
+    <thead><tr><th>Purpose</th><th>Answer</th><th>When</th><th>Withdrawn</th><th>Notice version</th></tr></thead>
+    <tbody>
+      {% for row in export.consent_history %}
+      <tr>
+        <td>{{ row.purpose }}</td>
+        <td>{{ 'granted' if row.granted else 'refused' }}</td>
+        <td>{{ row.at }}</td>
+        <td>{{ row.withdrawn_at or 'no' }}</td>
+        <td>{{ row.against_version }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

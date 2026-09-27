@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Cookie notice, Bharat Bazaar{% endblock %}
+{% block content %}
+<article class="notice">
+  <h1>Cookie notice</h1>
+  <p class="meta">Version {{ policy_version }}.</p>
+
+  <h2>Before you choose anything</h2>
+  <p>
+    On a first visit this site sets no cookie at all, and it loads no script, image,
+    stylesheet or font from anywhere other than this address. There is no tag manager,
+    no advertising pixel, no session recorder and no outside webfont. Nothing fires
+    before you have made a choice, because a request that has already gone out cannot
+    be consented to afterwards.
+  </p>
+
+  <h2>The cookies that can exist</h2>
+  <table class="grid">
+    <thead><tr><th>Name</th><th>Purpose</th><th>Category</th><th>Flags</th><th>Life</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>bb_session</td>
+        <td>Keeps you signed in. Set only once you sign in.</td>
+        <td>Strictly necessary</td>
+        <td>Secure, HttpOnly, SameSite=Lax</td>
+        <td>Thirty minutes idle</td>
+      </tr>
+      <tr>
+        <td>bb_consent_choice</td>
+        <td>Remembers the answer you gave, so you are not asked again.</td>
+        <td>Strictly necessary</td>
+        <td>Secure, HttpOnly, SameSite=Lax</td>
+        <td>Six months</td>
+      </tr>
+      <tr>
+        <td>none</td>
+        <td>There is no analytics or advertising cookie. The optional analytics counters
+            are rows on this server, keyed by a value that cannot be reversed into an
+            account.</td>
+        <td>Not applicable</td>
+        <td>Not applicable</td>
+        <td>Not applicable</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>The optional purposes</h2>
+  <ul class="plain">
+    {% for row in optional %}
+    <li><strong>{{ row.shown_as }}.</strong> {{ row.explains }} Currently
+      {{ 'on' if chosen.get(row.key) else 'off' }}.</li>
+    {% endfor %}
+  </ul>
+  <p><a href="/consent/preferences">Manage preferences</a></p>
+</article>
+{% endblock %}

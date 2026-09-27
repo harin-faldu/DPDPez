@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Privacy notice, Bharat Bazaar{% endblock %}
+{% block content %}
+<article class="notice">
+  <h1>Privacy notice</h1>
+  <p class="meta">
+    Version {{ policy_version }}. Last reviewed {{ reviewed_on }}. Owner: {{ register_owner }}.
+    This notice is given under section 5 of the Digital Personal Data Protection Act
+    2023 and is linked from the top of every page, so you can read it before you
+    give us anything.
+  </p>
+
+  <h2>1. Who we are</h2>
+  <p>
+    Bharat Bazaar Retail Private Limited, Ahmedabad, Gujarat, India, is the Data
+    Fiduciary for the personal data described here. We decide what is collected and
+    why, and we are answerable for it.
+  </p>
+
+  <h2>2. The purposes we process your personal data for</h2>
+  <p>
+    Each purpose is listed separately, with the personal data it needs, the lawful
+    basis and how long the data is kept for that purpose. We do not have a single
+    blanket purpose, and we do not use data collected for one purpose to serve
+    another without telling you first.
+  </p>
+  <table class="grid">
+    <thead>
+      <tr><th>Purpose</th><th>What it needs</th><th>Basis</th><th>Retention</th></tr>
+    </thead>
+    <tbody>
+      {% for row in register %}
+      <tr>
+        <td><strong>{{ row.shown_as }}</strong><br><span class="fine">{{ row.why }}</span></td>
+        <td>{{ row.data_kinds|join(', ') if row.data_kinds else 'no personal data' }}</td>
+        <td>{{ 'Consent, section 6' if row.basis == 'consent' else 'Legitimate use, section 7' }}</td>
+        <td>{{ row.keep_for_days }} days</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>3. What we do not do</h2>
+  <ul class="plain">
+    <li>We do not sell personal data, and we do not share it for anyone else's advertising.</li>
+    <li>We do not run third party analytics, advertising pixels or tag managers. The
+      analytics counters are computed on this server and no outside company sees them.</li>
+    <li>We do not profile you to make automated decisions about you.</li>
+    <li>We do not track anyone whose account is flagged as belonging to a person
+      under eighteen, and we do not direct advertising at them. See the
+      <a href="/children">notice for under 18 accounts</a>.</li>
+  </ul>
+
+  <h2>4. Consent, and taking it back</h2>
+  <p>
+    Two purposes run on consent: usage analytics and offers by email. Both start
+    switched off, both are asked for separately, and neither is a condition of using
+    the site or of buying anything. Withdrawing is one click on the
+    <a href="/consent/preferences">manage preferences</a> page, takes effect at once,
+    and is exactly as easy as giving consent was, as section 6(4) requires. We keep a
+    record of every consent and withdrawal, including which version of this notice it
+    was given against, so you can ask us to show you what you agreed to and when.
+  </p>
+
+  <h2>5. Your rights, and how to use them</h2>
+  <ul class="plain">
+    <li><a href="/account/my-data">Access, section 11.</a> A summary of the personal
+      data we hold, the processing activities it is used in, and a machine readable
+      copy you can download.</li>
+    <li><a href="/account/correction">Correction and completion, section 12.</a>
+      Change a name or a telephone number that is wrong or out of date.</li>
+    <li><a href="/account/delete-my-data">Erasure, section 12(3).</a> Have your account
+      and the records linked to it deleted, unless a law requires us to keep a
+      specific record for longer, in which case we tell you which one.</li>
+    <li><a href="/account/nominee">Nomination, section 14.</a> Name someone to exercise
+      these rights on your behalf if you die or become unable to act.</li>
+    <li><a href="/grievance">Grievance redressal, section 13.</a> Complain to us first.
+      The procedure and the response window are below.</li>
+  </ul>
+
+  <h2>6. Who to contact</h2>
+  {% for role, person, mailbox in contacts %}
+  <p><strong>{{ role }}:</strong> {{ person }}, <a href="mailto:{{ mailbox }}">{{ mailbox }}</a></p>
+  {% endfor %}
+  <p>
+    Write to either contact at Bharat Bazaar Retail Private Limited, Ashram Road,
+    Ahmedabad 380009, Gujarat, India.
+  </p>
+
+  <h2>7. If we do not resolve it</h2>
+  <p>
+    Raise the complaint with us first, through the
+    <a href="/grievance">complaint page</a> or by writing to the Grievance Officer. We
+    answer within thirty days. If you are not satisfied with the answer, or we do not
+    answer in time, you may then approach the Data Protection Board of India under
+    section 13(3) of the Act. The Board takes complaints electronically. You do not
+    need our permission to go to the Board, and you do not have to tell us first that
+    you intend to.
+  </p>
+  <p class="fine">{{ escalation }}</p>
+
+  <h2>8. How we protect it</h2>
+  <p>
+    Personal data columns are encrypted at rest with a per column cipher, so a copied
+    database file is unreadable without the key. Credentials are put through a slow
+    key derivation function and can never be read back. Every page that can reach
+    personal data is behind a sign in, every read and write is written to an audit
+    trail, and the audit entries hold a reference to the row rather than a second copy
+    of its contents. The full description is on the
+    <a href="/security">security page</a>.
+  </p>
+
+  <h2>9. How long we keep it</h2>
+  <p>
+    Each row gets an end date when it is written, taken from the retention period of
+    the purpose it was collected for, and a scheduled job deletes rows once that date
+    passes. The periods are in the table in section 2.
+  </p>
+
+  <h2>10. Processing we treat as high risk</h2>
+  <ul class="plain">
+    {% for row in high_risk %}
+    <li><strong>{{ row.shown_as }}.</strong> {{ row.why_high_risk }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>11. Changes to this notice</h2>
+  <p>
+    The version number at the top changes whenever the text changes. Consent records
+    store the version they were given against, so a change to this notice never
+    silently re-purposes a consent you gave to an earlier version.
+  </p>
+
+  <p class="fine">
+    Demonstration fixture. Every name, address, identifier and mailbox in this notice
+    is invented and the domains end in .invalid.
+  </p>
+</article>
+{% endblock %}
