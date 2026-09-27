@@ -187,7 +187,7 @@ export default function ScanForm({ onSubmit, submitting = false, error = null })
               className={cx(
                 'flex flex-1 items-center justify-center gap-2 border-b-2 px-3 py-3 text-sm font-medium whitespace-nowrap transition-colors',
                 active
-                  ? 'border-indigo-600 text-indigo-700 dark:border-indigo-400 dark:text-indigo-300'
+                  ? 'border-blue-600 text-blue-700 dark:border-blue-400 dark:text-blue-300'
                   : 'border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200',
               )}
             >
@@ -239,7 +239,7 @@ export default function ScanForm({ onSubmit, submitting = false, error = null })
                   'dark:bg-slate-950 dark:text-slate-100',
                   urlError
                     ? 'border-red-400 focus:outline-red-500 dark:border-red-700'
-                    : 'border-slate-300 focus:outline-indigo-500 dark:border-slate-700',
+                    : 'border-slate-300 focus:outline-blue-500 dark:border-slate-700',
                 )}
               />
             </div>
@@ -270,16 +270,16 @@ export default function ScanForm({ onSubmit, submitting = false, error = null })
               className={cx(
                 'mt-3 rounded-lg border-2 border-dashed px-4 py-8 text-center transition-colors',
                 isDragReject
-                  ? 'border-red-400 bg-red-50 dark:border-red-700 dark:bg-red-950/30'
+                  ? 'border-blue-400 bg-blue-50 dark:border-blue-700 dark:bg-blue-950/30'
                   : isDragActive
-                    ? 'border-indigo-500 bg-indigo-50 dark:border-indigo-500 dark:bg-indigo-950/30'
+                    ? 'border-blue-500 bg-blue-50 dark:border-blue-500 dark:bg-blue-950/30'
                     : 'border-slate-300 bg-slate-50 dark:border-slate-700 dark:bg-slate-950/40',
               )}
             >
               <input {...getInputProps()} />
               {file ? (
                 <div className="flex flex-wrap items-center justify-center gap-3">
-                  <FileArchive size={20} className="text-indigo-600 dark:text-indigo-400" aria-hidden="true" />
+                  <FileArchive size={20} className="text-blue-600 dark:text-blue-400" aria-hidden="true" />
                   <span className="min-w-0 text-sm font-medium break-all text-slate-800 dark:text-slate-100">
                     {file.name}
                   </span>
@@ -306,7 +306,7 @@ export default function ScanForm({ onSubmit, submitting = false, error = null })
                     <button
                       type="button"
                       onClick={open}
-                      className="font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-700 dark:text-indigo-400"
+                      className="font-medium text-blue-600 underline underline-offset-2 hover:text-blue-700 dark:text-blue-400"
                     >
                       browse
                     </button>

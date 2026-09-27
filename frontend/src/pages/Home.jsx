@@ -14,7 +14,6 @@ import {
   FileWarning,
   GitBranch,
   Globe,
-  Quote,
   ScrollText,
   ShieldAlert,
   ShieldCheck,
@@ -267,7 +266,7 @@ export default function Home() {
   return (
     <AppShell width="wide">
       <section className="mx-auto max-w-3xl text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 dark:border-indigo-900 dark:bg-indigo-950/50 dark:text-indigo-300">
+        <span className="inline-flex items-center border-l-2 border-blue-600 bg-blue-50 pl-3 pr-4 py-1 text-xs font-semibold tracking-widest text-blue-700 uppercase dark:bg-blue-950/30 dark:text-blue-300 dark:border-blue-500">
           Digital Personal Data Protection Act, 2023
         </span>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-balance text-slate-900 sm:text-4xl dark:text-slate-50">
@@ -290,7 +289,7 @@ export default function Home() {
           <Card key={item.title} padded>
             <item.icon
               size={20}
-              className="text-indigo-600 dark:text-indigo-400"
+              className="text-blue-600 dark:text-blue-400"
               aria-hidden="true"
             />
             <h2 className="mt-3 text-sm font-semibold text-slate-900 dark:text-slate-100">
@@ -303,40 +302,6 @@ export default function Home() {
         ))}
       </section>
 
-      {/* ---------------------------------------------------------- the brief */}
-      <section className="mx-auto mt-16 max-w-3xl">
-        <SectionLabel icon={Quote}>Where this started</SectionLabel>
-        <Card className="mt-3 border-indigo-200 dark:border-indigo-900">
-          <div className="p-5 sm:p-6">
-            <p className="text-xs font-semibold tracking-wide text-indigo-700 uppercase dark:text-indigo-300">
-              The original problem statement
-            </p>
-            <blockquote className="mt-2 border-l-2 border-indigo-300 pl-4 text-sm leading-relaxed text-slate-700 italic dark:border-indigo-700 dark:text-slate-300">
-              "DPDP compliance self-check. A tool that scans a sample web form or app and produces
-              a compliance scorecard against DPDP basics: consent, purpose limitation, and
-              retention." Build target: a scorecard generator for a sample form or app.
-            </blockquote>
-          </div>
-        </Card>
-
-        <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          <p>
-            A scorecard generator for one form does not survive contact with a real product. A
-            page can promise it never shares data while a tracker fires before anyone clicks
-            anything; a login form can look clean while the encryption it claims lives only in the
-            notice. Reading one surface and grading it would have produced a confident number
-            about the wrong thing.
-          </p>
-          <p>
-            So the build target became a pipeline instead of a page: read what a business{' '}
-            <strong>says</strong> about itself, watch what its site <strong>does</strong>, read
-            what its code <strong>actually implements</strong>, and only then combine the three.
-            Consent, purpose limitation and retention are still in there, at R4 and RET, alongside
-            ten more dimensions the same self-check needed once it had to survive a real target
-            instead of a sample form.
-          </p>
-        </div>
-      </section>
 
       {/* -------------------------------------------------------------- steps */}
       <section className="mt-14">
@@ -372,7 +337,7 @@ export default function Home() {
         <SectionLabel icon={GitBranch}>Technical architecture</SectionLabel>
         <p className="mt-1.5 max-w-3xl text-xs text-slate-500 dark:text-slate-400">
           Evidence and verdicts flow one way. A rule's status is decided from scanner evidence
-          alone before anything reaches the model in the amber layer, which only explains and
+          alone before anything reaches the model in the explanation layer, which only explains and
           cites a verdict already reached and cannot change it.
         </p>
         <Card className="mt-4 overflow-hidden">
@@ -464,12 +429,11 @@ export default function Home() {
                 {RULES.map((rule) => {
                   const stage = STAGE_META[rule.stage]
                   return (
-                    <tr key={rule.id} className={rule.highlight ? 'bg-amber-50/50 dark:bg-amber-950/10' : undefined}>
+                    <tr key={rule.id} className={rule.highlight ? 'bg-blue-50/50 dark:bg-blue-950/10' : undefined}>
                       <td className="px-4 py-3 align-top sm:px-5">
-                        <div className="flex items-center gap-2">
-                          <MonoBadge>{rule.id}</MonoBadge>
-                        </div>
-                        <p className="mt-1 font-medium text-slate-800 dark:text-slate-200">{rule.name}</p>
+                        <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
+                          <span className="text-slate-400 dark:text-slate-500 font-mono">{rule.id}:</span>{' '}{rule.name}
+                        </span>
                       </td>
                       <td className="px-3 py-3 align-top whitespace-nowrap text-slate-600 dark:text-slate-400">
                         {rule.act}
@@ -477,10 +441,8 @@ export default function Home() {
                       <td className="px-3 py-3 align-top whitespace-nowrap text-slate-600 dark:text-slate-400">
                         {rule.rules}
                       </td>
-                      <td className="px-3 py-3 align-top">
-                        <Badge tone={stage.tone} size="sm">
-                          {stage.label}
-                        </Badge>
+                      <td className="px-3 py-3 align-top whitespace-nowrap text-xs text-slate-600 dark:text-slate-400">
+                        {stage.label}
                       </td>
                       <td className="px-4 py-3 align-top leading-relaxed text-slate-600 sm:px-5 dark:text-slate-400">
                         {rule.checks}
@@ -496,9 +458,9 @@ export default function Home() {
 
       {/* -------------------------------------------------------------- CERT-In */}
       <section className="mt-14">
-        <Card className="border-amber-300 bg-amber-50/40 dark:border-amber-800 dark:bg-amber-950/20">
+        <Card className="border-blue-200 bg-blue-50/20 dark:border-blue-900 dark:bg-blue-950/10">
           <div className="p-5 sm:p-6">
-            <SectionLabel icon={ShieldAlert} tone="amber">
+            <SectionLabel icon={ShieldAlert} tone="blue">
               CERT-In Directions, checked independently of the DPDP Act
             </SectionLabel>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700 dark:text-slate-300">
@@ -515,8 +477,8 @@ export default function Home() {
                 { title: 'Incident reporting', body: 'An alerting path that can reach a responder inside the six-hour reporting window, not an error swallowed and written to local disk.' },
                 { title: 'Cryptographic posture', body: 'No hardcoded secrets, no credentials logged in clear text, no deprecated TLS still accepted at the edge.' },
               ].map((item) => (
-                <div key={item.title} className="rounded-md border border-amber-200 bg-white p-3 dark:border-amber-900 dark:bg-slate-900">
-                  <p className="text-xs font-semibold text-amber-900 dark:text-amber-200">{item.title}</p>
+                <div key={item.title} className="rounded-md border border-blue-200 bg-white p-3 dark:border-blue-800 dark:bg-slate-900">
+                  <p className="text-xs font-semibold text-blue-900 dark:text-blue-200">{item.title}</p>
                   <p className="mt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{item.body}</p>
                 </div>
               ))}
@@ -541,8 +503,8 @@ export default function Home() {
           add.
         </p>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
-          <Card padded className="border-emerald-200 dark:border-emerald-900">
-            <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
+          <Card padded className="border-blue-200 dark:border-blue-900">
+            <div className="flex items-center gap-2 text-blue-700 dark:text-blue-400">
               <Database size={17} aria-hidden="true" />
               <h3 className="text-sm font-semibold">Already true: no raw data is stored</h3>
             </div>
@@ -557,8 +519,8 @@ export default function Home() {
               it is a data principal's actual information.
             </p>
           </Card>
-          <Card padded className="border-amber-200 dark:border-amber-900">
-            <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
+          <Card padded className="border-slate-300 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
               <Sparkles size={17} aria-hidden="true" />
               <h3 className="text-sm font-semibold">Open item: a DPA with the AI vendor</h3>
             </div>
@@ -582,8 +544,8 @@ function SectionLabel({ icon: Icon, children, tone = 'default' }) {
   return (
     <h2
       className={
-        tone === 'amber'
-          ? 'flex items-center gap-2 text-sm font-semibold tracking-wide text-amber-800 uppercase dark:text-amber-300'
+        tone === 'blue'
+          ? 'flex items-center gap-2 text-sm font-semibold tracking-wide text-blue-800 uppercase dark:text-blue-300'
           : 'flex items-center gap-2 text-sm font-semibold tracking-wide text-slate-500 uppercase dark:text-slate-400'
       }
     >

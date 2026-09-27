@@ -18,7 +18,7 @@ export default function AppShell({ children, actions, width = 'wide' }) {
           )}
         >
           <Link to="/" className="flex min-w-0 items-center gap-2.5">
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-indigo-600 text-white">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-blue-600 text-white">
               <Scale size={17} aria-hidden="true" />
             </span>
             <span className="min-w-0">

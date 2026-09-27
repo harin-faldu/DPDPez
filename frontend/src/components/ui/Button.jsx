@@ -5,7 +5,7 @@ import { cx } from '../../lib/format.js'
 
 const VARIANTS = {
   primary:
-    'bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700 hover:border-indigo-700 focus-visible:outline-indigo-600',
+    'bg-blue-600 text-white border-blue-600 hover:bg-blue-700 hover:border-blue-700 focus-visible:outline-blue-600',
   secondary:
     'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 focus-visible:outline-slate-500 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-800',
   ghost:
