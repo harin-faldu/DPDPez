@@ -23,6 +23,7 @@ import {
 } from 'lucide-react'
 import AppShell from '../components/AppShell.jsx'
 import ScanForm from '../components/ScanForm.jsx'
+import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
 import Card, { CardHeader, CardTitle } from '../components/ui/Card.jsx'
 import Badge, { MonoBadge } from '../components/ui/Badge.jsx'
 import { startCodeScan, startPolicyScan, startWebScan } from '../api/client.js'
@@ -366,6 +367,25 @@ export default function Home() {
         </ol>
       </section>
 
+      {/* -------------------------------------------------------- architecture */}
+      <section className="mt-14">
+        <SectionLabel icon={GitBranch}>Technical architecture</SectionLabel>
+        <p className="mt-1.5 max-w-3xl text-xs text-slate-500 dark:text-slate-400">
+          Evidence and verdicts flow one way. A rule's status is decided from scanner evidence
+          alone before anything reaches the model in the amber layer, which only explains and
+          cites a verdict already reached and cannot change it.
+        </p>
+        <Card className="mt-4 overflow-hidden">
+          {/* No horizontal scroll here on purpose: the diagram scales as one
+              piece to whatever width is available, including a phone's, rather
+              than clipping the two rightmost columns behind a scrollbar a
+              reader has to notice is there before they can see the rest. */}
+          <div className="p-4 sm:p-6">
+            <ArchitectureDiagram />
+          </div>
+        </Card>
+      </section>
+
       {/* --------------------------------------------------------- notice list */}
       <section className="mt-14">
         <SectionLabel icon={ClipboardList}>Stage 1 reads the notice against 15 requirements</SectionLabel>
@@ -398,7 +418,37 @@ export default function Home() {
           Rules 2025 number that actually governs the topic, which is not always the same digit as
           the rule's own name.
         </p>
-        <Card className="mt-4 overflow-hidden">
+        {/* Below sm, a 5-column table cannot shrink to a phone's width without
+            either clipping columns behind a scrollbar or squeezing "what it
+            checks" into an unreadable sliver, so it renders as cards instead
+            of a stunted table. */}
+        <div className="mt-4 grid gap-3 sm:hidden">
+          {RULES.map((rule) => {
+            const stage = STAGE_META[rule.stage]
+            return (
+              <Card
+                key={rule.id}
+                padded
+                className={rule.highlight ? 'border-amber-300 bg-amber-50/50 dark:border-amber-800 dark:bg-amber-950/10' : undefined}
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <MonoBadge>{rule.id}</MonoBadge>
+                  <span className="font-medium text-slate-800 dark:text-slate-200">{rule.name}</span>
+                  <Badge tone={stage.tone} size="sm" className="ml-auto">
+                    {stage.label}
+                  </Badge>
+                </div>
+                <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
+                  {rule.act} &middot; {rule.rules}
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                  {rule.checks}
+                </p>
+              </Card>
+            )
+          })}
+        </div>
+        <Card className="mt-4 hidden overflow-hidden sm:block">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>

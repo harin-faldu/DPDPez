@@ -32,7 +32,38 @@ export default function AggregateRuleTable({ rules = [] }) {
           Rule by rule, across stages
         </CardTitle>
       </CardHeader>
-      <div className="overflow-x-auto">
+      {/* Cards below sm, same reasoning as the rules table on the landing
+          page: a long rule name plus four more columns has nowhere left to
+          shrink to on a phone without clipping one of them. */}
+      <div className="grid gap-2 p-4 sm:hidden">
+        {rules.map((rule) => {
+          const meta = ruleStatusMeta(rule.status)
+          const usedFromBoth = (rule.sources || []).length > 1
+          return (
+            <div
+              key={rule.rule_id}
+              className="rounded-md border border-slate-200 p-3 dark:border-slate-800"
+            >
+              <div className="flex flex-wrap items-center gap-2">
+                <MonoBadge>{rule.rule_id}</MonoBadge>
+                <span className="text-slate-700 dark:text-slate-300">{rule.rule_name}</span>
+                <Badge tone={meta.tone} size="sm" icon={meta.icon} className="ml-auto">
+                  {meta.label}
+                </Badge>
+              </div>
+              <div className="mt-2 flex items-center gap-4 text-[11px] text-slate-500 tabular-nums dark:text-slate-400">
+                <span>Web {cell(rule.web_score)}</span>
+                <span>Code {cell(rule.code_score)}</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                  Used {cell(rule.score)}
+                  {usedFromBoth ? <span className="ml-1 font-normal text-slate-400">min</span> : null}
+                </span>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div className="hidden overflow-x-auto sm:block">
         <table className="w-full text-left text-xs">
           <thead>
             <tr className="border-b border-slate-200 text-[11px] tracking-wide text-slate-500 uppercase dark:border-slate-800 dark:text-slate-400">

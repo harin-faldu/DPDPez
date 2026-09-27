@@ -49,7 +49,7 @@ export function validateUrl(raw) {
   }
   const host = parsed.hostname
   if (!host) return 'The URL is missing a hostname.'
-  const isLocal = host === 'localhost' || /^\d{1,3}(\.\d{1,3}){3}$/.test(host)
+  const isLocal = looksLocal(host)
   if (!isLocal && !host.includes('.')) {
     return 'Include a full domain, for example example.co.in.'
   }
@@ -57,10 +57,25 @@ export function validateUrl(raw) {
   return null
 }
 
-/** Adds the scheme the user left off, so the backend always sees an absolute URL. */
+/** True for a hostname that is only ever reachable on this machine or network. */
+function looksLocal(hostname) {
+  return hostname === 'localhost' || /^\d{1,3}(\.\d{1,3}){3}$/.test(hostname)
+}
+
+/**
+ * Adds the scheme the user left off, so the backend always sees an absolute URL.
+ *
+ * Defaults to https, except for a local host, which defaults to http. A dev
+ * server on 127.0.0.1 or localhost almost never has a TLS certificate, so
+ * guessing https there does not time out gracefully, it fails the handshake
+ * outright, and the plain http address the person actually meant was one
+ * character away the whole time.
+ */
 export function normaliseUrl(raw) {
   const value = String(raw || '').trim()
-  return /^https?:\/\//i.test(value) ? value : `https://${value}`
+  if (/^https?:\/\//i.test(value)) return value
+  const hostname = value.split(/[/:?#]/)[0]
+  return `${looksLocal(hostname) ? 'http' : 'https'}://${value}`
 }
 
 const TABS = [
@@ -194,6 +209,10 @@ export default function ScanForm({ onSubmit, submitting = false, error = null })
             >
               Site to assess
             </label>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              A bare host like <code className="rounded bg-slate-100 px-1 py-0.5 font-mono dark:bg-slate-800">localhost:5001</code> is
+              read as plain http, since a local dev server almost never has a TLS certificate.
+            </p>
             <div className="relative mt-3">
               <Link2
                 size={16}
